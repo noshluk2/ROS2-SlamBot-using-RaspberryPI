@@ -1,4 +1,5 @@
-## Repository for Upcoming Course
+## This branch contains package for Older Version of Course
 
-- **robot_driving_src** : Contain all source Codes to run on RPI
-- **slamBot** : Package Develop for ROS2 Rpi
+### System Requirements
+- RPI 3B+
+- ROS Kinect
