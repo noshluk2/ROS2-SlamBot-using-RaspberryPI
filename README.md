@@ -5,7 +5,11 @@
 
 #### Running Code
 - **Interfacing Code for RPI**
-    -  Install required Libraries
+    - RpLidar ROS Package
+    ```
+    - sudo apt-get install ros-foxy-rplidar-ros
+    ``` 
+    -  Install required PIGPIO Library
     ```
     pip install pigpio
     sudo apt-get install libpigpiod-if2-1
@@ -64,3 +68,12 @@
     - passwork is 'ubuntu'
   ```
   ssh ubuntu@pi_IP
+  ```
+  - Lidar Scan generation -> fake transform
+  ```
+   ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 "world" "laser"
+  ```
+  - Stopping Rplidar Scanning
+  ```
+  
+  ```
