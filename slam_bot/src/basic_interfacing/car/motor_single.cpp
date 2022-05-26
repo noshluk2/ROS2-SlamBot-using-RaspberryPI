@@ -12,11 +12,8 @@ written by Lloyd Brombach and published by Packt Publishing
 
 //define our GPIO pin assignments
 const int PWM_A = 25;
-const int MOTOR_A_FWD = 24;
-const int MOTOR_A_REV = 23;
-const int PWM_B = 4;
-const int MOTOR_B_FWD = 15;
-const int MOTOR_B_REV = 14;
+const int MOTOR_A_FWD = 23;
+const int MOTOR_A_REV = 24;
 
 //handshakes with Pigpio Daemon and sets up our pins.
 int pigpio_setup()
@@ -31,15 +28,9 @@ int pigpio_setup()
     set_mode(pi,MOTOR_A_FWD, PI_OUTPUT);
     set_mode(pi,MOTOR_A_REV, PI_OUTPUT);
 
-    set_mode(pi,PWM_B, PI_OUTPUT);
-    set_mode(pi,MOTOR_B_FWD, PI_OUTPUT);
-    set_mode(pi,MOTOR_B_REV, PI_OUTPUT);
-
     //initializes motor off
     gpio_write(pi, MOTOR_A_FWD, 1);
     gpio_write(pi, MOTOR_A_REV, 1);
-    gpio_write(pi, MOTOR_B_FWD, 1);
-    gpio_write(pi, MOTOR_B_REV, 1);
     return pi;
 }
 
@@ -57,32 +48,24 @@ int main()
 
     //when you're ready to start the motor
     gpio_write(pi, MOTOR_A_FWD, 0);
-    gpio_write(pi, MOTOR_B_FWD, 0);
 
     // starts a PWM signal to motor A enable at half speed
     set_PWM_dutycycle(pi, PWM_A, 127);
-    set_PWM_dutycycle(pi, PWM_B, 127);
     time_sleep(3); //3 second delay
     //starts motor at full speed
     set_PWM_dutycycle(pi, PWM_A, 255);
-    set_PWM_dutycycle(pi, PWM_B, 255);
     time_sleep(3);
 
     //stops the motor
     gpio_write(pi, MOTOR_A_FWD, 1);
-    gpio_write(pi, MOTOR_B_FWD, 1);
     time_sleep(1);
     //repeats in reverse
     gpio_write(pi, MOTOR_A_REV, 0);
     set_PWM_dutycycle(pi, PWM_A, 127);
-    gpio_write(pi, MOTOR_B_REV, 0);
-    set_PWM_dutycycle(pi, PWM_B, 127);
     time_sleep(3);
     set_PWM_dutycycle(pi, PWM_A, 255);
-    set_PWM_dutycycle(pi, PWM_B, 255);
     time_sleep(3);
     gpio_write(pi, MOTOR_A_REV, 1);
-    gpio_write(pi, MOTOR_B_REV, 1);
 
     pigpio_stop(pi);
     return 0;
